@@ -12,18 +12,25 @@ import java.awt.*;
 
 class Main {
     public static void main(String[] args) {
-        File file = new File("./res/wils/Items.wzl");
-        // WIL wzl = new WIL(file.getAbsolutePath());
-        WZL wzl = new WZL(file.getAbsolutePath());
+        String folder = "Hair";
+        File file = new File("./res/wils/Hair.wil");
+        //解析WIL文件
+        WIL wzl = new WIL(file.getAbsolutePath());
+        //解析WZL文件 （文件夹下同时要加上wzx索引文件）
+        // WZL wzl = new WZL(file.getAbsolutePath());
         if (wzl.isLoaded()) {
             System.out.println("wzl loaded");
             System.out.println("wzl: image count: " + wzl.getImageCount());
             /// write file to local
             Color blackColor = new Color(0x000000);
+            File folderFile = new File("./outputs/" + folder);
+            if (!folderFile.exists()) {
+                folderFile.mkdir();
+            }
             for (int index = 0; index < wzl.getImageCount(); index++) {
                 Texture texture = wzl.tex(index);
                 if (!texture.empty()) {
-                    String dist = "./outputs/mon/output_" + index + ".png";
+                    String dist = "./outputs/" + folder+ "/output_" + index + ".png";
                     BufferedImage bufferedImage = Texture.toBufferedImage(texture, true);
                     Image image = makeColorTransparent(bufferedImage, blackColor);
                     BufferedImage transparentBufferedImage = imageToBufferedImage(image);
