@@ -5,23 +5,25 @@ import javax.imageio.ImageIO;
 
 import core.Texture;
 import core.image.WIL;
+import core.image.WZL;
 
 import java.awt.image.*;
 import java.awt.*;
 
 class Main {
     public static void main(String[] args) {
-        File file = new File("./res/wils/stateitem.wil");
-        WIL wzl = new WIL(file.getAbsolutePath());
+        File file = new File("./res/wils/Items.wzl");
+        // WIL wzl = new WIL(file.getAbsolutePath());
+        WZL wzl = new WZL(file.getAbsolutePath());
         if (wzl.isLoaded()) {
-            System.out.printf("wzl loaded");
-            System.out.printf("wzl: image count: " + wzl.getImageCount());
+            System.out.println("wzl loaded");
+            System.out.println("wzl: image count: " + wzl.getImageCount());
             /// write file to local
             Color blackColor = new Color(0x000000);
             for (int index = 0; index < wzl.getImageCount(); index++) {
                 Texture texture = wzl.tex(index);
                 if (!texture.empty()) {
-                    String dist = "./outputs/images/output_" + index + ".png";
+                    String dist = "./outputs/mon/output_" + index + ".png";
                     BufferedImage bufferedImage = Texture.toBufferedImage(texture, true);
                     Image image = makeColorTransparent(bufferedImage, blackColor);
                     BufferedImage transparentBufferedImage = imageToBufferedImage(image);
@@ -36,7 +38,7 @@ class Main {
                 }
             }
         } else {
-            System.out.printf("wzl loaded failed");
+            System.out.println("wzl loaded failed");
         }
     }
 
