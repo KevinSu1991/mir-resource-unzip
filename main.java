@@ -12,8 +12,12 @@ import java.awt.*;
 
 class Main {
     public static void main(String[] args) {
-        String folder = "Hair";
-        File file = new File("./res/wils/Hair.wil");
+        String name = "prguse";
+        unpakFile(name, name + ".wil");
+    }
+
+    private static void unpakFile(String folder, String fileName) {
+        File file = new File("./res/wils/" + fileName);
         //解析WIL文件
         WIL wzl = new WIL(file.getAbsolutePath());
         //解析WZL文件 （文件夹下同时要加上wzx索引文件）
